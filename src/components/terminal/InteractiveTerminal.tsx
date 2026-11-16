@@ -18,7 +18,7 @@ export const InteractiveTerminal: React.FC = () => {
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
   const [isExpanded, setIsExpanded] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const terminalBodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const initialLines: TerminalLine[] = [
@@ -41,7 +41,10 @@ export const InteractiveTerminal: React.FC = () => {
   const [lines, setLines] = useState<TerminalLine[]>(initialLines);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Only auto-scroll the internal terminal content box when commands are typed
+    if (lines.length > 1 && terminalBodyRef.current) {
+      terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+    }
   }, [lines]);
 
   const handleCommand = (rawCmd: string) => {
@@ -345,7 +348,10 @@ export const InteractiveTerminal: React.FC = () => {
           </div>
 
           {/* Terminal Console Output */}
-          <div className="p-4 sm:p-6 min-h-[340px] max-h-[500px] overflow-y-auto space-y-3 text-xs sm:text-sm">
+          <div
+            ref={terminalBodyRef}
+            className="p-4 sm:p-6 min-h-[340px] max-h-[500px] overflow-y-auto space-y-3 text-xs sm:text-sm"
+          >
             {lines.map((line) => {
               if (line.type === 'input') {
                 return (
@@ -361,7 +367,6 @@ export const InteractiveTerminal: React.FC = () => {
                 </div>
               );
             })}
-            <div ref={bottomRef} />
           </div>
 
           {/* Active Input Line */}

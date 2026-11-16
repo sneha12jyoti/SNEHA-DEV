@@ -24,6 +24,14 @@ export function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
+  // Guarantee page always starts from Home (Hero) on open and refresh
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   // Initialize Lenis Smooth Scrolling
   useEffect(() => {
     const lenis = new Lenis({
@@ -66,7 +74,12 @@ export function App() {
       {/* Cinematic Introductory Loading Screen */}
       <AnimatePresence mode="wait">
         {isLoading && (
-          <CinematicLoader onComplete={() => setIsLoading(false)} />
+          <CinematicLoader
+            onComplete={() => {
+              setIsLoading(false);
+              window.scrollTo({ top: 0, behavior: 'instant' });
+            }}
+          />
         )}
       </AnimatePresence>
 
