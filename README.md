@@ -2,7 +2,7 @@
 
 A world-class, futuristic, editorial developer portfolio built for **K Sneha** (AI/ML Engineer & Software Developer).
 
-Inspired by contemporary creative developer design (inspired by modern Awwwards/satym.in aesthetics), with deep black & charcoal palettes, electric violet & subtle cyan accents, interactive 3D neural network visuals (Three.js), Lenis smooth scrolling, command palette (`Ctrl+K`), an interactive CLI terminal, and comprehensive project case studies.
+ with deep black & charcoal palettes, electric violet & subtle cyan accents, interactive 3D neural network visuals (Three.js), Lenis smooth scrolling, command palette (`Ctrl+K`), an interactive CLI terminal, and comprehensive project case studies.
 
 ---
 
